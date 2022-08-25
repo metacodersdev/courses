@@ -12,16 +12,3 @@ export interface CourseGetResponse {
   promo_code?: string;
   price?: number;
 };
-
-export interface SiteGetResponse {
-  id: string;
-  siteName: string;
-  siteUrl: string;
-  keywords: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export interface CourseGetBySiteResponse extends CourseGetResponse {
-  site: SiteGetResponse;
-};
