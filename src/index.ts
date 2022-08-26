@@ -57,5 +57,3 @@ const server = (async () => {
     console.log(`Server is running at PORT ${port}`);
   });
 })();
-
-
