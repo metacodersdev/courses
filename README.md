@@ -12,6 +12,4 @@ generate structure database: `npx prisma db push`
 
 generate prisma client: `npm run prisma:generate`
 
-
-
->>>>>>> setup docker database and node
+run dev: `npm run dev`
