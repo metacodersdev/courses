@@ -17,12 +17,12 @@ export const courseGetByIdInteractor = async (prismaClient: PrismaClient, course
     imageUrl: course.img_url,
     videoUrl: course.video_url,
     description: course.description || "",
-    short_description: course.short_description || "",
+    shortDescription: course.short_description || "",
     vote: course.vote || 0,
     during: course.during || "",
     createdAt: course.created_at.toISOString(),
     updatedAt: course.updated_at.toISOString(),
-    promo_code: course.promo_code || "",
+    promoCode: course.promo_code || "",
     price: course.price || 0,
   }
 

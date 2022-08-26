@@ -12,4 +12,6 @@ export const ConfigsEnvironment: Configs = {
   mysqlUser: process.env.MYSQL_USER || "metacoders",
   mysqlPassword: process.env.MYSQL_PASSWORD || "metacoders123",
   mysqlUrl: process.env.DATABASE_URL || "mysql://metacoders:metacoders123@localhost:3306/metacourses",
+
+  paginationLimit: Number(process.env.PAGINATION_LIMIT) || 10,
 };

@@ -7,7 +7,7 @@ import { coursesRouter } from './routers/coursesRouter';
 import { seedData } from './seedData';
 
 const server = (async () => {
-  const { port, nodeEnv, routerPath } = ConfigsEnvironment;
+  const configs = ConfigsEnvironment;
 
   const prismaClient = new PrismaClient();
   const allTables: Array<{ TABLE_NAME: string }> = await prismaClient.$queryRaw`
@@ -15,7 +15,7 @@ const server = (async () => {
     WHERE table_schema = ${"metacourses"};
   `;
   const existsCourseData = await prismaClient.course.count();
-  const isDropData = existsCourseData && nodeEnv === "development";
+  const isDropData = existsCourseData && configs.nodeEnv === "development";
   if (isDropData) {
     try {
       await prismaClient.$connect();
@@ -50,9 +50,9 @@ const server = (async () => {
   app.get('/api/v1/', (req: Request, res: Response) => {
     res.status(200).json("hello");
   });
-  app.use(coursesRouter(router, routerPath, prismaClient))
+  app.use(coursesRouter(router, configs, prismaClient))
 
-  
+  const port = configs.port;
   app.listen(port, () => {
     console.log(`Server is running at PORT ${port}`);
   });
