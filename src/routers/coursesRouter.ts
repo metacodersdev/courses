@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import console from "console";
 import { Request, Response, Router } from "express";
 import { courseGetByIdInteractor } from "../interactors/courseGet/courseGetByIdInteractor";
 import { coursesGetInteractor } from "../interactors/coursesGet/coursesGetInteractor";

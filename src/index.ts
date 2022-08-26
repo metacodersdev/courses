@@ -1,5 +1,6 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import bodyParser from 'body-parser';
+import cors, { CorsOptions } from 'cors';
 import express, { Express, Request, Response, Router } from 'express';
 import { ConfigsEnvironment } from './configs/ConfigsEnvironment';
 import { coursesRouter } from './routers/coursesRouter';
@@ -38,6 +39,11 @@ const server = (async () => {
   await seedData(prismaClient);
 
   const app: Express = express();
+
+  const corsOption: CorsOptions = {
+    origin: "*",
+  };
+  app.use(cors(corsOption));
   app.use(bodyParser.json());
   const router = Router();
 
