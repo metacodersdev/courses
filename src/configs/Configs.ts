@@ -8,4 +8,6 @@ export type Configs = {
   mysqlUser: string;
   mysqlPassword: string;
   mysqlUrl: string;
+
+  paginationLimit: number;
 }

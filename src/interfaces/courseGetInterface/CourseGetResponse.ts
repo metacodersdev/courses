@@ -4,11 +4,11 @@ export interface CourseGetResponse {
   imageUrl: string;
   videoUrl: string;
   description?: string;
-  short_description?: string;
+  shortDescription?: string;
   vote?: number;
   during?: string;
   createdAt: string;
   updatedAt: string;
-  promo_code?: string;
+  promoCode?: string;
   price?: number;
 };
