@@ -1,7 +1,8 @@
 export type Configs = {
   port: number;
   nodeEnv: string;
-  routerPath: string;
+  routerPathV1: string;
+  routerPathV2: string;
 
   mysqlHost: string;
   mysqlPort: number;
@@ -10,4 +11,4 @@ export type Configs = {
   mysqlUrl: string;
 
   paginationLimit: number;
-}
+};
