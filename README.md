@@ -1,15 +1,15 @@
-# courses
+# courses BE
 
-### Build environment
+### Docker Environment
 
 In terminal run: `docker-compose -f docker-compose.yml up`
 
-### Run development
+### Setup
 
 Install package: `npm install`
 
-generate structure database: `npx prisma db push`
-
-generate prisma client: `npm run prisma:generate`
-
+- Generate structure database: `npx prisma db push`
+- Generate prisma client: `npm run prisma:generate`
+- Generate prisma client: `npm run prisma:generate`
+### Run 
 run dev: `npm run dev`
