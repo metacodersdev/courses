@@ -2,7 +2,7 @@
 
 ### Docker Environment
 
-In terminal run: `docker-compose -f docker-compose.yml up`
+In terminal run: `docker-compose -f docker-compose.yml -p nestjs_mysql up`
 
 ### Setup
 

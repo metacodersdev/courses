@@ -48,7 +48,7 @@ const server = (async () => {
   const router = Router();
 
   app.get('/api/v1/', (req: Request, res: Response) => {
-    res.status(200).json("hello");
+    res.status(200).json("hello : " + req.url);
   });
   app.use(coursesRouter(router, configs, prismaClient))
 
