@@ -7,6 +7,6 @@ EXPOSE 3002
 
 FROM base as dev
 ENV NODE_ENV=development
-RUN npm ci
+RUN npm i
 COPY . /metacoders-courses-service
 CMD ["npm", "dev"]
