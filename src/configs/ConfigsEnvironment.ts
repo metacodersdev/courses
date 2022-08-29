@@ -16,5 +16,5 @@ export const ConfigsEnvironment: Configs = {
     process.env.DATABASE_URL ||
     "mysql://metacoders:metacoders123@localhost:3306/metacourses",
 
-  paginationLimit: Number(process.env.PAGINATION_LIMIT) || 10,
+  paginationLimit: Number(process.env.PAGINATION_LIMIT) || 16,
 };

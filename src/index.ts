@@ -7,6 +7,7 @@ import { dataMockup } from "./dataMockup/dataMockup";
 import { coursesRouterV2 } from "./routers/coursesRouterV2";
 import { seedData } from "./seedData";
 import { coursesRouterV1 } from "./services/courses/coursesRouterV1";
+import { topicsRouterV1 } from "./services/topics/topicsRouterV1";
 
 const server = (async () => {
   const configs = ConfigsEnvironment;
@@ -56,6 +57,7 @@ const server = (async () => {
     res.status(200).json("hello");
   });
   app.use(coursesRouterV1(router, configs, data));
+  app.use(topicsRouterV1(router, configs, data));
 
   // api v2
   app.use(coursesRouterV2(router, configs, prismaClient));

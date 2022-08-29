@@ -1,4 +1,4 @@
-import { Course, Topic } from "../../../dataMockup/DataMockupInterface";
+import { Course } from "../../../dataMockup/DataMockupInterface";
 import { chunk, flatten, zip } from "../../../pkgs/lodash";
 
 const coursesGetBySite = (data: Course[], siteName: string): Course[] => {
