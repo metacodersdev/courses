@@ -1,12 +1,20 @@
-FROM node:18 as base
+
+FROM node:18 as build-image
 RUN apt-get update && apt-get install -y openssl
-
-WORKDIR /metacoders-courses-service
+WORKDIR /usr/src/app
 COPY package*.json ./
-EXPOSE 3002
+COPY tsconfig.json ./
+COPY ./prisma ./prisma
+COPY ./src ./src
+RUN npm ci
+#RUN npx prisma db push
+RUN npx tsc
 
-FROM base as dev
-ENV NODE_ENV=development
-RUN npm i
-COPY . /metacoders-courses-service
-CMD ["npm", "dev"]
+FROM node:18
+WORKDIR /usr/src/app
+COPY package*.json ./
+COPY --from=build-image ./usr/src/app/dist ./dist
+RUN npm ci --production
+COPY . .
+EXPOSE 8080
+CMD [ "node", "dist/index.js" ]

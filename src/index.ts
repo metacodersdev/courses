@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+//import { Prisma, PrismaClient } from "@prisma/client";
 import bodyParser from "body-parser";
 import cors, { CorsOptions } from "cors";
 import express, { Express, Request, Response, Router } from "express";
@@ -12,7 +12,7 @@ import { topicsRouterV1 } from "./services/topics/topicsRouterV1";
 const server = (async () => {
   const configs = ConfigsEnvironment;
 
-  const prismaClient = new PrismaClient();
+  //const prismaClient = new PrismaClient();
   // const allTables: Array<{ TABLE_NAME: string }> = await prismaClient.$queryRaw`
   //   SELECT TABLE_NAME FROM information_schema.tables
   //   WHERE table_schema = ${"metacourses"};
@@ -54,13 +54,13 @@ const server = (async () => {
 
   // api v1
   app.get("/api/v1/", (req: Request, res: Response) => {
-    res.status(200).json("hello");
+    res.status(200).json("hello "+ req.url);
   });
   app.use(coursesRouterV1(router, configs, data));
   app.use(topicsRouterV1(router, configs, data));
 
   // api v2
-  app.use(coursesRouterV2(router, configs, prismaClient));
+  //app.use(coursesRouterV2(router, configs, prismaClient));
 
   const port = configs.port;
   app.listen(port, () => {

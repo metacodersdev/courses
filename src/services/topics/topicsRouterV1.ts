@@ -12,6 +12,7 @@ export const topicsRouterV1 = (
 
   router.get(`${path}/topics`, (req: Request, res: Response) => {
     const response = topicsGetInteractor(dataMockup);
+    console.log(req);
     return res.status(200).json(response);
   });
 

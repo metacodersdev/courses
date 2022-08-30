@@ -15,7 +15,9 @@ services:
     restart: on-failure
 
   web:
-    build: "./"
+    build: 
+      context: ./
+      dockerfile: ./docker/Dockerfile
     volumes:
       - .:/metacoders-courses-service
     command: sh -c "npx prisma db push && npm run dev"
