@@ -6,6 +6,7 @@ import { ConfigsEnvironment } from "./configs/ConfigsEnvironment";
 import { dataMockup } from "./dataMockup/dataMockup";
 import { coursesRouterV2 } from "./routers/coursesRouterV2";
 import { seedData } from "./seedData";
+import { countsRouter } from "./services/counts/countsRouter";
 import { coursesRouterV1 } from "./services/courses/coursesRouterV1";
 import { crawlRouters } from "./services/crawl/crawlRouters";
 import { topicsRouterV1 } from "./services/topics/topicsRouterV1";
@@ -59,6 +60,7 @@ const server = (async () => {
   app.use(coursesRouterV1(router, configs, data));
   app.use(topicsRouterV1(router, configs, data));
   app.use(crawlRouters(router, configs, data));
+  app.use(countsRouter(router, configs, data));
 
   // api v2
   //app.use(coursesRouterV2(router, configs, prismaClient));

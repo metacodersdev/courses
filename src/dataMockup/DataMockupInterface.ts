@@ -25,8 +25,8 @@ export interface Course {
   description: string;
   count_reviews?: number;
   rating?: number;
-  count_like?: number;
-  count_comment?: number;
+  count_like?: number | string;
+  count_comment?: number | string;
   count_views: number;
   last_updated: string;
   total_time: string;
