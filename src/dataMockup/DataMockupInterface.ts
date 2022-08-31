@@ -1,11 +1,19 @@
 interface Site {
   id: number;
   site_name: string;
+  url: string;
 }
 
 export interface Topic {
   id: number;
   topic_name: string;
+}
+
+export interface Author {
+  id: number;
+  name: string;
+  subscribe: number | string;
+  url: string;
 }
 
 export interface Course {
@@ -15,14 +23,16 @@ export interface Course {
   img_url: string;
   video_url?: string;
   description: string;
-  rating: number;
-  score?: number;
-  views: number;
+  count_reviews?: number;
+  rating?: number;
+  count_like?: number | string;
+  count_comment?: number | string;
+  count_views: number;
   last_updated: string;
-  subscribe: number;
   total_time: string;
-  site: Site;
-  price?: string;
+  price: string;
   coupon?: string;
   topics: Topic[];
+  site: Site;
+  authors: Author[];
 }
