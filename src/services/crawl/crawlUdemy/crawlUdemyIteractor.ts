@@ -41,7 +41,7 @@ export const crawlUdemyIteractor = async (
   url: string
 ): Promise<string> => {
   const crawlData = await crawlSite(url);
-
+  console.log(data);
   return JSON.stringify(crawlData);
 
   // const course: Course = {

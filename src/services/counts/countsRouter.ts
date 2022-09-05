@@ -8,6 +8,7 @@ export const countsRouter = (router: Router,configs: Configs, data: Course[]) =>
 
   router.get(`${path}/counts`, (req: Request, res: Response) => {
     const response = countsCourseInteractor(data);
+    console.log(req);
     return res.status(200).json(response);
   });
 
