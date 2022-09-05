@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import { Configs } from "../../configs/Configs";
 import { Course } from "../../dataMockup/DataMockupInterface";
-import { topicsGetInteractor } from "./topicsGet/topicsGetInteractor";
+import { topicsGetInteractor } from "../topics/topicsGet/topicsGetInteractor";
 
 export const topicsRouterV1 = (
   router: Router,

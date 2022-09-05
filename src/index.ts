@@ -6,10 +6,10 @@ import { ConfigsEnvironment } from "./configs/ConfigsEnvironment";
 import { dataMockup } from "./dataMockup/dataMockup";
 import { coursesRouterV2 } from "./routers/coursesRouterV2";
 import { seedData } from "./seedData";
-import { countsRouter } from "./services/counts/countsRouter";
-import { coursesRouterV1 } from "./services/courses/coursesRouterV1";
-import { crawlRouters } from "./services/crawl/crawlRouters";
-import { topicsRouterV1 } from "./services/topics/topicsRouterV1";
+import { countsRouter } from "./services/controllers/countsRouter";
+import { coursesRouterV1 } from "./services/controllers/coursesRouterV1";
+import { crawlRouters } from "./services/controllers/crawlRouters";
+import { topicsRouterV1 } from "./services/controllers/topicsRouterV1";
 
 const server = (async () => {
   const configs = ConfigsEnvironment;

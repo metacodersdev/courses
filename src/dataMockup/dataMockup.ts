@@ -605,5 +605,41 @@ export const dataMockup = (): Course[] => {
         },
       ],
     },
+    {
+      id: 18,
+      title:
+        "Code Cùng Code Dạo - Tự Học JavaScript Cơ Bản trong 15 phút",
+      course_url:
+        "https://www.youtube.com/watch?v=ZIgDYEZl1VE",
+      img_url: "https://i.ytimg.com/vi/ZIgDYEZl1VE/maxresdefault.jpg",
+      video_url: "https://www.youtube.com/embed/ZIgDYEZl1VE",
+      description:
+        "Hôm nay, Code Dạo một lần làm clip lạ để xem các bạn có trầm trồ. (Cố ý để font nhỏ để các bạn xem trên máy tính và code theo nhe)Tụi mình sẽ cùng học JavaSc...",
+      count_like: "10K",
+      count_comment: 779,
+      count_views: 387642,
+      last_updated: "Jun 4, 2019",
+      total_time: "15:02",
+      price: "free",
+      topics: [
+        {
+          id: 7,
+          topic_name: "typescript",
+        },
+      ],
+      site: {
+        id: 1,
+        site_name: "youtube",
+        url: "https://www.youtube.com/",
+      },
+      authors: [
+        {
+          id: 16,
+          name: "Phạm Huy Hoàng",
+          url: "https://www.youtube.com/c/t%C3%B4i%C4%91icoded%E1%BA%A1oblog",
+          subscribe: "277k",
+        },
+      ],
+    },
   ];
 };
