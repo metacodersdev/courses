@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import { Configs } from "../../configs/Configs";
 import { Course } from "../../dataMockup/DataMockupInterface";
-import { countsCourseInteractor } from "./countsCourse/countsCourseInteractor";
+import { countsCourseInteractor } from "../counts/countsCourse/countsCourseInteractor";
 
 export const countsRouter = (router: Router,configs: Configs, data: Course[]) => {
   const { routerPathV1: path } = configs;

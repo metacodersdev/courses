@@ -19,7 +19,7 @@ const crawlSite = async (url: string) => {
     .text()
     .replace(/[^\d]/g, "");
   const countViews = $("div .enrollment").text().split(" ")[0];
-  const totalTime = $('h2[data-purpose="curriculum-header"]').text();
+  const totalTime = $('div[data-purpose="curriculum-stats"]').find("span");
   console.log("totalTime-------------------", totalTime);
 
   const lastUpdated = $("div .last-update-date > span").text().split(" ")[2];
