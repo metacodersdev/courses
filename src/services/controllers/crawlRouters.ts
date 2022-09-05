@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import { Configs } from "../../configs/Configs";
 import { Course } from "../../dataMockup/DataMockupInterface";
-import { crawlUdemyIteractor } from "./crawlUdemy/crawlUdemyIteractor";
+import { crawlUdemyIteractor } from "../crawl/crawlUdemy/crawlUdemyIteractor";
 
 interface CrawlPayload {
   url: string;

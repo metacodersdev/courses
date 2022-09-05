@@ -1,8 +1,8 @@
 import { Request, Response, Router } from "express";
 import { Configs } from "../../configs/Configs";
 import { Course } from "../../dataMockup/DataMockupInterface";
-import { coursesGetInteractor } from "./coursesGet/coursesGetInteractor";
-import { coursesGetByTopicInteractor } from "./coursesGetByTopic/coursesGetByTopicInteractor";
+import { coursesGetInteractor } from "../courses/coursesGet/coursesGetInteractor";
+import { coursesGetByTopicInteractor } from "../courses/coursesGetByTopic/coursesGetByTopicInteractor";
 
 export const coursesRouterV1 = (
   router: Router,
@@ -19,12 +19,14 @@ export const coursesRouterV1 = (
   });
 
   router.get(`${path}/courses/:topicName`, (req: Request, res: Response) => {
+    const limit = configs.paginationLimit;
+    const offset = (Number(req.query["page"]) as number) || undefined;
     const topicName = req.params["topicName"];
     if (!topicName) {
       throw new Error("topic name should not empty");
     }
 
-    const response = coursesGetByTopicInteractor(dataMockup, topicName);
+    const response = coursesGetByTopicInteractor(dataMockup, topicName, limit, offset);
     return res.status(200).json(response);
   });
 
