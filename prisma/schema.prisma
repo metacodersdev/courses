@@ -25,7 +25,7 @@ model Course {
   updated_at              DateTime          @default(now())
   site_id                 Int        
   category_id             Int
-  include                 Json?
+  include                 String?           @db.MediumText // Json?   
   promo_code              String?
   price                   Int?              @default(0)
   site                    Site              @relation(fields: [site_id], references: [id])

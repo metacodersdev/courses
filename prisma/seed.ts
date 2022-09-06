@@ -1,7 +1,6 @@
 import { PrismaClient } from "@prisma/client";
-
-export const seedData = async (prismaClient: PrismaClient) => {
-  await prismaClient.$transaction(async (prisma) => {
+const prisma = new PrismaClient();
+async function mainSeed () {
     await prisma.site.createMany(
       {
         data: [
@@ -16,8 +15,7 @@ export const seedData = async (prismaClient: PrismaClient) => {
             keywords: "udemy",
           }
         ]
-      }
-    );
+      });
     const sites = await prisma.site.findMany();
     if (!sites || !sites[0] || !sites[1]) {
       throw new Error("site table does not data yet");
@@ -98,6 +96,13 @@ export const seedData = async (prismaClient: PrismaClient) => {
     if (!topicCourseCreated) {
       throw new Error("Error while create data for topicCourse");
     }
+  }
+  mainSeed()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    // close Prisma Client at the end
+    await prisma.$disconnect();
   });
-  await prismaClient.$disconnect();
-}
