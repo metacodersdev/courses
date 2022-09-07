@@ -14,25 +14,32 @@ datasource db {
 
 model Course {
   id                      Int               @id @unique @default(autoincrement())
-  title                   String  
+  title                   String
+  course_url              String  
   img_url                 String
-  video_url               String
+  video_url               String?
   description             String?           @db.Text
   short_description       String?
-  vote                    Int?
+  rating                  String?
+  count_reviews           Int?
+  count_like              String?
+  count_comment           String?
+  count_views             Int
   during                  String?
+  last_updated            String
   created_at              DateTime          @default(now())
   updated_at              DateTime          @default(now())
   site_id                 Int        
   category_id             Int
   include                 String?           @db.MediumText // Json?   
   promo_code              String?
-  price                   Int?              @default(0)
+  price                   String?           @default("free")
   site                    Site              @relation(fields: [site_id], references: [id])
   category                Category          @relation(fields: [category_id], references: [id])
   topics                  TopicCourse[]
   comments                CourseComment[]
   details                 CourseDetail[]
+  authors                 AuthorCourse[]
 }
 
 model Site {
@@ -108,4 +115,25 @@ model CourseDetail {
   updated_at              DateTime          @default(now())
   course_id               Int
   course                  Course            @relation(fields: [course_id], references: [id])
+}
+
+model Author {
+  id                      Int               @id @unique @default(autoincrement())
+  name                    String
+  url                     String
+  subscribe               String
+  created_at              DateTime          @default(now())
+  updated_at              DateTime          @default(now())
+  courses                 AuthorCourse[]
+}
+
+model AuthorCourse {
+  author_id               Int
+  course_id               Int
+  author                  Author            @relation(fields: [author_id], references: [id])
+  course                  Course            @relation(fields: [course_id], references: [id])
+  created_at              DateTime          @default(now())
+  updated_at              DateTime          @default(now())
+
+  @@id([author_id, course_id])
 }
