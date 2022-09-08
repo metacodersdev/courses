@@ -1,0 +1,31 @@
+{
+  "name": "Crawler-with-puppeteer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pre_build": "npm i",
+    "youtube_ts": "nodemon code_puppeteer/youtube_puppeteer.ts",
+    "youtube_js": "nodemon code_puppeteer/youtube_puppeteer.js",
+    "youtube_api": "nodemon code_puppeteer/youtube_api.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^4.3.1",
+    "chrome-launcher": "^0.15.1",
+    "dotenv": "^16.0.2",
+    "googleapis": "^107.0.0",
+    "puppeteer": "^17.1.1",
+    "puppeteer-core": "^17.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.15",
+    "nodemon": "^2.0.19",
+    "prisma": "^4.3.1",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.4.0",
+    "typescript": "^4.8.2"
+  }
+}
