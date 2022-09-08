@@ -17,26 +17,26 @@ export class CoursesGetByTopicService {
         skip: (page - 1) * limit,
         take: limit,
         where: {
-          topics: {
+          TopicCourse: {
             every: {
-              topic: {
+              Topic: {
                 title: topicName
               }
             }
           }
         },
         include: {
-          topics: {
+          TopicCourse: {
             include: {
-              topic: true,
-            },
+              Topic: true
+            }
           },
-          authors: {
+          AuthorCourse: {
             include: {
-              author: true,
-            },
+              Author: true
+            }
           },
-          site: true,
+          Site: true,
         }
       });
 
@@ -45,9 +45,9 @@ export class CoursesGetByTopicService {
       }
 
       const response = coursesGet.map((course) => {
-        const topics = course.topics.map((topic) => topic.topic);
-        const authors = course.authors.map((author) => author.author);
-        return this.courseResponseBuilderService.execute({...course}, topics, course.site, authors)
+        const topics = course.TopicCourse.map((topic) => topic.Topic);
+        const authors = course.AuthorCourse.map((author) => author.Author);
+        return this.courseResponseBuilderService.execute({...course}, topics, course.Site, authors)
       });
 
       return this.interleaveCoursesBySiteService.execute(response);
@@ -55,26 +55,26 @@ export class CoursesGetByTopicService {
 
     const coursesGet = await this.prismaService.course.findMany({
       where: {
-        topics: {
+        TopicCourse: {
           every: {
-            topic: {
+            Topic: {
               title: topicName
             }
           }
         }
       },
       include: {
-          topics: {
+          TopicCourse: {
             include: {
-              topic: true,
-            },
+              Topic: true
+            }
           },
-          authors: {
+          AuthorCourse: {
             include: {
-              author: true,
-            },
+              Author: true
+            }
           },
-          site: true,
+          Site: true,
         }
     });
 
@@ -83,9 +83,9 @@ export class CoursesGetByTopicService {
     }
 
     const response = coursesGet.map((course) => {
-        const topics = course.topics.map((topic) => topic.topic);
-        const authors = course.authors.map((author) => author.author);
-        return this.courseResponseBuilderService.execute({...course}, topics, course.site, authors)
+        const topics = course.TopicCourse.map((topic) => topic.Topic);
+        const authors = course.AuthorCourse.map((author) => author.Author);
+        return this.courseResponseBuilderService.execute({...course}, topics, course.Site, authors)
       });
 
       return this.interleaveCoursesBySiteService.execute(response);
