@@ -1,8 +1,9 @@
 "use strict"
+require('dotenv').config()
 const {google} = require('googleapis');
 const youtube = google.youtube({
   version: 'v3',
-  auth: 'AIzaSyCLfoH5LmI4oiEmGktTDOrfmPAXTr2IXxU'
+  auth: process.env.YOUTUBE_KEY
 });
 
 youtube.search.list({
