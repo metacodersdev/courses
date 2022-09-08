@@ -1,5 +1,5 @@
-import flatten from "lodash/flatten";
 import chunk from "lodash/chunk";
+import flatten from "lodash/flatten";
 import zip from "lodash/zip";
 import filter from "lodash/filter";
 import map from "lodash/map";
