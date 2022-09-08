@@ -1,7 +1,7 @@
 require("dotenv").config();
 import { Configs } from "./Configs";
 
-export const ConfigsEnvironment: Configs = {
+export const configsEnvironment = (): Configs => ({
   port: Number(process.env.PORT) || 3001,
   nodeEnv: process.env.NODE_ENV || "development",
 
@@ -17,4 +17,4 @@ export const ConfigsEnvironment: Configs = {
     "mysql://metacoders:metacoders123@localhost:3306/metacourses",
 
   paginationLimit: Number(process.env.PAGINATION_LIMIT) || 16,
-};
+});
