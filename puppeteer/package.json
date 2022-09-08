@@ -8,13 +8,14 @@
     "pre_build": "npm i",
     "youtube_ts": "nodemon code_puppeteer/youtube_puppeteer.ts",
     "youtube_js": "nodemon code_puppeteer/youtube_puppeteer.js",
-    "youtube_api": "nodemon code_puppeteer/youtube_api.js"
+    "youtube_api": "nodemon code_puppeteer/youtube_api.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^4.3.1",
     "chrome-launcher": "^0.15.1",
+    "date-fns": "^2.29.2",
     "dotenv": "^16.0.2",
     "googleapis": "^107.0.0",
     "puppeteer": "^17.1.1",

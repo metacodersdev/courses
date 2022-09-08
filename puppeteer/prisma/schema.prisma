@@ -1,4 +1,3 @@
-//See more https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["interactiveTransactions"]
@@ -10,38 +9,63 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Author {
+  id           Int            @id @unique @default(autoincrement())
+  name         String
+  url          String
+  subscribe    String
+  created_at   DateTime       @default(now())
+  updated_at   DateTime       @default(now())
+  AuthorCourse AuthorCourse[]
+}
+
+model AuthorCourse {
+  author_id  Int
+  course_id  Int
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  Author     Author   @relation(fields: [author_id], references: [id])
+  Course     Course   @relation(fields: [course_id], references: [id])
+
+  @@id([author_id, course_id])
+  @@index([course_id], map: "AuthorCourse_course_id_fkey")
+}
+
 model Category {
   id          Int      @id @unique @default(autoincrement())
   title       String
   description String?
   created_at  DateTime @default(now())
   updated_at  DateTime @default(now())
-  Course      Course[]
 }
 
 model Course {
   id                Int             @id @unique @default(autoincrement())
   title             String
   img_url           String
-  video_url         String
+  video_url         String?
   description       String?         @db.Text
   short_description String?
-  vote              Int?
   during            String?
   created_at        DateTime        @default(now())
   updated_at        DateTime        @default(now())
   site_id           Int
-  category_id       Int
   include           String?         @db.MediumText
   promo_code        String?
-  price             Int?            @default(0)
-  Category          Category        @relation(fields: [category_id], references: [id])
+  price             String?         @default("free")
+  count_comment     String?
+  count_like        String?
+  count_reviews     Int?
+  count_views       Int
+  rating            String?
+  course_url        String
+  last_updated      String
   Site              Site            @relation(fields: [site_id], references: [id])
+  AuthorCourse      AuthorCourse[]
   CourseComment     CourseComment[]
   CourseDetail      CourseDetail[]
   TopicCourse       TopicCourse[]
 
-  @@index([category_id], map: "Course_category_id_fkey")
   @@index([site_id], map: "Course_site_id_fkey")
 }
 
@@ -76,14 +100,17 @@ model CourseDetail {
 }
 
 model Site {
-  id         Int        @id @unique @default(autoincrement())
-  site_name  String
-  site_url   String
-  keywords   String
-  created_at DateTime   @default(now())
-  updated_at DateTime   @default(now())
-  Course     Course[]
-  SiteFile   SiteFile[]
+  id           Int        @id @unique @default(autoincrement())
+  site_name    String
+  site_url     String
+  keywords     String
+  created_at   DateTime   @default(now())
+  updated_at   DateTime   @default(now())
+  topic_ids    String?    @db.VarChar(100)
+  category_ids String?    @db.VarChar(100)
+  parent_id    Int        @default(1)
+  Course       Course[]
+  SiteFile     SiteFile[]
 }
 
 model SiteFile {
