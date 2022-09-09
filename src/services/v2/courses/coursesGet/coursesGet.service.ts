@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "src/services/prismaService/prisma.service";
-import { CourseResponseBuilderService } from "../common/courseResponseBuilder.service";
 import { InterleaveCoursesBySiteService } from "../common/interleaveCoursesBySite.service";
 import { CourseGetResponse } from "../../interface/CourseGetResponse";
 import { flattenDeep } from "src/pkgs/lodash";
@@ -9,7 +8,6 @@ import { flattenDeep } from "src/pkgs/lodash";
 export class CoursesGetService {
   constructor(
     private prismaService: PrismaService,
-    private courseResponseBuilderService: CourseResponseBuilderService,
     private interleaveCoursesBySiteService: InterleaveCoursesBySiteService
   ) {}
 

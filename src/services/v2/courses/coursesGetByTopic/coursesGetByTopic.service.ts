@@ -1,13 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "src/services/prismaService/prisma.service";
-import { CourseResponseBuilderService } from "../common/courseResponseBuilder.service";
 import { InterleaveCoursesBySiteService } from "../common/interleaveCoursesBySite.service";
 
 @Injectable()
 export class CoursesGetByTopicService {
   constructor(
     private prismaService: PrismaService,
-    private courseResponseBuilderService: CourseResponseBuilderService,
     private interleaveCoursesBySiteService: InterleaveCoursesBySiteService
   ) {}
 
