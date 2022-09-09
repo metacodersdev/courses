@@ -55,8 +55,8 @@ model Course {
   price             String?         @default("free")
   count_comment     String?
   count_like        String?
-  count_reviews     Int?
-  count_views       Int
+  count_reviews     String?
+  count_views       String
   rating            String?
   course_url        String
   last_updated      String
