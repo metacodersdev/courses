@@ -17,25 +17,11 @@ export class CoursesGetByTopicService {
         skip: (page - 1) * limit,
         take: limit,
         where: {
-          TopicCourse: {
-            every: {
-              Topic: {
-                title: topicName
-              }
-            }
+          Site: {
+            keywords: topicName 
           }
         },
         include: {
-          TopicCourse: {
-            include: {
-              Topic: true
-            }
-          },
-          AuthorCourse: {
-            include: {
-              Author: true
-            }
-          },
           Site: true,
         }
       });
@@ -44,50 +30,24 @@ export class CoursesGetByTopicService {
         return [];
       }
 
-      const response = coursesGet.map((course) => {
-        const topics = course.TopicCourse.map((topic) => topic.Topic);
-        const authors = course.AuthorCourse.map((author) => author.Author);
-        return this.courseResponseBuilderService.execute({...course}, topics, course.Site, authors)
-      });
-
-      return this.interleaveCoursesBySiteService.execute(response);
+      return coursesGet;
     }
 
     const coursesGet = await this.prismaService.course.findMany({
       where: {
-        TopicCourse: {
-          every: {
-            Topic: {
-              title: topicName
-            }
-          }
+        Site: {
+          keywords: topicName 
         }
       },
       include: {
-          TopicCourse: {
-            include: {
-              Topic: true
-            }
-          },
-          AuthorCourse: {
-            include: {
-              Author: true
-            }
-          },
-          Site: true,
-        }
+        Site: true,
+      }
     });
 
     if (!coursesGet) {
       return [];
     }
 
-    const response = coursesGet.map((course) => {
-        const topics = course.TopicCourse.map((topic) => topic.Topic);
-        const authors = course.AuthorCourse.map((author) => author.Author);
-        return this.courseResponseBuilderService.execute({...course}, topics, course.Site, authors)
-      });
-
-      return this.interleaveCoursesBySiteService.execute(response);
+    return coursesGet;
   }
 }

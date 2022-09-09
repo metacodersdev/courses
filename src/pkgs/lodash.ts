@@ -8,5 +8,6 @@ import uniqBy from "lodash/uniqBy";
 import some from "lodash/some";
 import find from "lodash/find";
 import concat from "lodash/concat";
+import flattenDeep from "lodash/flattenDeep"
 
-export { chunk, flatten, zip, filter, map, pick, uniqBy, some, find, concat };
+export { chunk, flatten, zip, filter, map, pick, uniqBy, some, find, concat, flattenDeep };

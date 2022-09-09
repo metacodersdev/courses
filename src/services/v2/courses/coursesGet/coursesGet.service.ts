@@ -3,6 +3,7 @@ import { PrismaService } from "src/services/prismaService/prisma.service";
 import { CourseResponseBuilderService } from "../common/courseResponseBuilder.service";
 import { InterleaveCoursesBySiteService } from "../common/interleaveCoursesBySite.service";
 import { CourseGetResponse } from "../../interface/CourseGetResponse";
+import { flattenDeep } from "src/pkgs/lodash";
 
 @Injectable()
 export class CoursesGetService {
@@ -12,22 +13,12 @@ export class CoursesGetService {
     private interleaveCoursesBySiteService: InterleaveCoursesBySiteService
   ) {}
 
-  async execute(limit: number, page?: number): Promise<CourseGetResponse[]> {
+  async execute(limit: number, page?: number) {
     if (page) {
       const coursesGet = await this.prismaService.course.findMany({
         skip: (page - 1) * limit,
         take: limit,
         include: {
-          TopicCourse: {
-            include: {
-              Topic: true
-            }
-          },
-          AuthorCourse: {
-            include: {
-              Author: true
-            }
-          },
           Site: true
         },
       });
@@ -36,27 +27,11 @@ export class CoursesGetService {
         return [];
       }
 
-      const response = coursesGet.map((course) => {
-        const topics = course.TopicCourse.map((topic) => topic.Topic);
-        const authors = course.AuthorCourse.map((author) => author.Author);
-        return this.courseResponseBuilderService.execute({...course}, topics, course.Site, authors)
-      });
-
-      return this.interleaveCoursesBySiteService.execute(response);
+      return coursesGet
     }
 
     const coursesGet = await this.prismaService.course.findMany({
       include: {
-          TopicCourse: {
-            include: {
-              Topic: true
-            }
-          },
-          AuthorCourse: {
-            include: {
-              Author: true
-            }
-          },
           Site: true,
         }
     });
@@ -65,12 +40,6 @@ export class CoursesGetService {
       return [];
     }
 
-    const response = coursesGet.map((course) => {
-        const topics = course.TopicCourse.map((topic) => topic.Topic);
-        const authors = course.AuthorCourse.map((author) => author.Author);
-        return this.courseResponseBuilderService.execute({...course}, topics, course.Site, authors)
-      });
-
-      return this.interleaveCoursesBySiteService.execute(response);
+    return coursesGet
   }
 }
