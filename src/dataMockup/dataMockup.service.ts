@@ -15,7 +15,8 @@ export class DataMockupService {
         video_url: "https://www.youtube.com/embed/Dorf8i6lCuk",
         description:
           "Get Started with React.js and learn how to build amazing websites with ReactJS! Full Project included, 100% free!Join our bestselling ReactJS course",
-        rating: 19633,
+        count_like: "19k",
+        count_comment: 924,
         count_views: 1101601,
         last_updated: "May 5, 2021",
         total_time: "3:51:55",
