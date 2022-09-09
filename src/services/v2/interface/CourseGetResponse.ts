@@ -23,19 +23,21 @@ export interface CourseDto {
   img_url: string;
   video_url?: string;
   description: string;
-  count_reviews?: number;
+  count_reviews?: string;
   rating?: string;
-  count_like?: number | string;
-  count_comment?: number | string;
-  count_views: number;
+  count_like?: string;
+  count_comment?: string;
+  count_views: string;
   last_updated: string;
   total_time: string;
   price: string;
   coupon?: string;
+  author_id: string;
+  author_name: string;
+  subscribers_count: string;
 };
 
 export interface CourseGetResponse extends CourseDto {
   topics: TopicDto[],
   site: SiteDto,
-  authors: AuthorDto[]
 };

@@ -8,12 +8,8 @@ export class CountsGetService {
 
   async execute(): Promise<CountsGetResponse> {
     const countCourses = await this.prismaService.course.count();
-    const countTopics = await this.prismaService.topic.count();
-    const countAuthors = await this.prismaService.author.count();
     return {
-      courses: countCourses,
-      topics: countTopics,
-      authors: countAuthors,
+      courses: countCourses
     }
   }
 }

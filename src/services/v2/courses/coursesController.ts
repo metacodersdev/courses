@@ -14,7 +14,7 @@ export class CoursesController {
   ) {}
 
   @Get('')
-  async coursesGet(@Query("page", new DefaultValuePipe(0), ParseIntPipe) page?: number): Promise<CourseGetResponse[]> {
+  async coursesGet(@Query("page", new DefaultValuePipe(0), ParseIntPipe) page?: number) {
     const limit = this.configService.get("paginationLimit");
     return this.coursesGetService.execute(limit, page);
   };
@@ -23,7 +23,7 @@ export class CoursesController {
   async coursesGetByTopic(
     @Param("topicName") topicName: string,
     @Query("page", new DefaultValuePipe(0), ParseIntPipe) page?: number
-  ): Promise<CourseGetResponse[]> {
+  ) {
     const limit = this.configService.get("paginationLimit");
     return this.coursesGetByTopicService.execute(topicName, limit, page);
   }

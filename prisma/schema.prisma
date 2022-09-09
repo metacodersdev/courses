@@ -53,13 +53,16 @@ model Course {
   include           String?         @db.MediumText
   promo_code        String?
   price             String?         @default("free")
-  count_comment     String?
-  count_like        String?
-  count_reviews     Int?
-  count_views       Int
+  count_comment     String?         @default("0")
+  count_like        String?         @default("0")
+  count_reviews     String?         @default("0") @db.VarChar(20)
+  count_views       String?         @default("0") @db.VarChar(20)
   rating            String?
   course_url        String
   last_updated      String
+  channel_id        String?         @db.VarChar(100)
+  channel_name      String?         @db.VarChar(100)
+  subscribers_count String?         @default("0") @db.VarChar(100)
   Site              Site            @relation(fields: [site_id], references: [id])
   AuthorCourse      AuthorCourse[]
   CourseComment     CourseComment[]
