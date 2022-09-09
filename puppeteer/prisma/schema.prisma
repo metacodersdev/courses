@@ -62,6 +62,7 @@ model Course {
   last_updated      String
   channel_id        String?         @db.VarChar(100)
   channel_name      String?         @db.VarChar(100)
+  subscribers_count String?         @default("0") @db.VarChar(100)
   Site              Site            @relation(fields: [site_id], references: [id])
   AuthorCourse      AuthorCourse[]
   CourseComment     CourseComment[]
