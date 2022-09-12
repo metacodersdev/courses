@@ -1,6 +1,6 @@
-# fly.toml file generated for metacourses on 2022-08-30T16:08:07+07:00
+# fly.toml file generated for metacourses2 on 2022-09-12T11:57:29+07:00
 
-app = "metacourses"
+app = "metacourses2"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
