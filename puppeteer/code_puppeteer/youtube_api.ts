@@ -23,7 +23,8 @@ async function main() {
                 q: site.keywords,
                 type: 'video',
                 eventType:'none',
-                maxResults: 20
+                maxResults: 20,
+                regionCode:'US'
             }).then((res1:any) => {
             if (res1.data.items) {
                 const ids=res1.data.items.map((el:any) =>  {
