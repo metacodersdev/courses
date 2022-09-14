@@ -1,19 +1,14 @@
 import { Injectable } from "@nestjs/common";
 import { flatten, zip } from "src/pkgs/lodash";
-import { CourseGetResponse } from "../../interface/CourseGetResponse";
+import { Course } from "@prisma/client";
 
 @Injectable()
 export class InterleaveCoursesBySiteService {
-  execute(courses: CourseGetResponse[]) {
-    const coursesGetByYoutube = this.coursesFilterBySite(courses, "youtube");
-    const coursesGetByUdemy = this.coursesFilterBySite(courses, "udemy");
+  execute(coursesGetByYoutube: Course[], coursesGetByUdemy: Course[]): Course[] {
     const mergeCourses = zip(coursesGetByYoutube, coursesGetByUdemy);
     const interleaveCourses = flatten(mergeCourses).filter(
       (course) => course
-    ) as CourseGetResponse[];
+    );
     return interleaveCourses;
-    }
-  coursesFilterBySite(courses: CourseGetResponse[], siteName: string) {
-    return courses.filter((course) => course.site.site_name === siteName);
   }
 }

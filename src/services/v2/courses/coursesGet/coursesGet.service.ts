@@ -1,31 +1,26 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "src/services/prismaService/prisma.service";
 import { InterleaveCoursesBySiteService } from "../common/interleaveCoursesBySite.service";
-import { CourseGetResponse } from "../../interface/CourseGetResponse";
-import { flattenDeep } from "src/pkgs/lodash";
+import { CoursesGetBySiteNameService } from "../common/coursesGetBySiteName.service";
+import { Course } from "@prisma/client";
 
 @Injectable()
 export class CoursesGetService {
   constructor(
     private prismaService: PrismaService,
+    private coursesGetBySiteNameService: CoursesGetBySiteNameService,
     private interleaveCoursesBySiteService: InterleaveCoursesBySiteService
   ) {}
 
-  async execute(limit: number, page?: number) {
+  async execute(limit: number, page?: number): Promise<Course[]> {
     if (page) {
-      const coursesGet = await this.prismaService.course.findMany({
-        skip: (page - 1) * limit,
-        take: limit,
-        include: {
-          Site: true
-        },
-      });
+      const udemyLimit = Math.round(limit / 2);
+      const youtubeLimit = limit - udemyLimit;
+      const coursesGetByUdemy = await this.coursesGetBySiteNameService.execute("udemy", udemyLimit, page);
+      const coursesGetByYoutube = await this.coursesGetBySiteNameService.execute("youtube", youtubeLimit, page);
+      const courses = this.interleaveCoursesBySiteService.execute(coursesGetByYoutube, coursesGetByUdemy);
 
-      if (!coursesGet) {
-        return [];
-      }
-
-      return coursesGet
+      return courses;
     }
 
     const coursesGet = await this.prismaService.course.findMany({
@@ -38,6 +33,9 @@ export class CoursesGetService {
       return [];
     }
 
-    return coursesGet
+    const coursesGetByUdemy = coursesGet.filter((course) => course.Site.site_name === "udemy");
+    const coursesGetByYoutube = coursesGet.filter((course) => course.Site.site_name === "youtube");
+    const courses = this.interleaveCoursesBySiteService.execute(coursesGetByYoutube, coursesGetByUdemy);
+    return courses;
   }
 }

@@ -1,10 +1,149 @@
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["interactiveTransactions"]
-  binaryTargets   = ["native", "linux-musl"]
+  binaryTargets   = ["native", "linux-musl", "darwin"]
 }
 
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model Author {
+  id           Int            @id @unique @default(autoincrement())
+  name         String
+  url          String
+  subscribe    String
+  created_at   DateTime       @default(now())
+  updated_at   DateTime       @default(now())
+  AuthorCourse AuthorCourse[]
+}
+
+model AuthorCourse {
+  author_id  Int
+  course_id  Int
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  Author     Author   @relation(fields: [author_id], references: [id])
+  Course     Course   @relation(fields: [course_id], references: [id])
+
+  @@id([author_id, course_id])
+  @@index([course_id], map: "AuthorCourse_course_id_fkey")
+}
+
+model Category {
+  id          Int      @id @unique @default(autoincrement())
+  title       String
+  description String?
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+}
+
+model Course {
+  id                Int             @id @unique @default(autoincrement())
+  title             String
+  img_url           String
+  video_url         String?
+  description       String?         @db.Text
+  short_description String?
+  during            String?
+  created_at        DateTime        @default(now())
+  updated_at        DateTime        @default(now())
+  site_id           Int
+  include           String?         @db.MediumText
+  promo_code        String?
+  price             String?         @default("free")
+  count_comment     String?         @default("0")
+  count_like        String?         @default("0")
+  count_reviews     String?         @default("0") @db.VarChar(20)
+  count_views       String?         @default("0") @db.VarChar(20)
+  rating            String?
+  course_url        String
+  last_updated      String
+  channel_id        String?         @db.VarChar(100)
+  channel_name      String?         @db.VarChar(100)
+  subscribers_count String?         @default("0") @db.VarChar(100)
+  Site              Site            @relation(fields: [site_id], references: [id])
+  AuthorCourse      AuthorCourse[]
+  CourseComment     CourseComment[]
+  CourseDetail      CourseDetail[]
+  TopicCourse       TopicCourse[]
+
+  @@index([site_id], map: "Course_site_id_fkey")
+}
+
+model CourseComment {
+  id          Int      @id @unique @default(autoincrement())
+  title       String
+  description String?  @db.Text
+  vote        Int?
+  helpful     Int?     @db.TinyInt
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+  course_id   Int?
+  Course      Course?  @relation(fields: [course_id], references: [id])
+
+  @@index([course_id], map: "CourseComment_course_id_fkey")
+}
+
+model CourseDetail {
+  id                Int      @id @unique @default(autoincrement())
+  title             String
+  img_url           String
+  video_url         String
+  description       String?  @db.Text
+  short_description String?
+  during            String?
+  created_at        DateTime @default(now())
+  updated_at        DateTime @default(now())
+  course_id         Int
+  Course            Course   @relation(fields: [course_id], references: [id])
+
+  @@index([course_id], map: "CourseDetail_course_id_fkey")
+}
+
+model Site {
+  id           Int        @id @unique @default(autoincrement())
+  site_name    String
+  site_url     String
+  keywords     String
+  created_at   DateTime   @default(now())
+  updated_at   DateTime   @default(now())
+  topic_ids    String?    @db.VarChar(100)
+  category_ids String?    @db.VarChar(100)
+  parent_id    Int        @default(1)
+  Course       Course[]
+  SiteFile     SiteFile[]
+}
+
+model SiteFile {
+  id         Int      @id @unique @default(autoincrement())
+  file_url   String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  site_id    Int?
+  Site       Site?    @relation(fields: [site_id], references: [id])
+
+  @@index([site_id], map: "SiteFile_site_id_fkey")
+}
+
+model Topic {
+  id          Int           @id @unique @default(autoincrement())
+  title       String
+  description String?
+  created_at  DateTime      @default(now())
+  updated_at  DateTime      @default(now())
+  TopicCourse TopicCourse[]
+}
+
+model TopicCourse {
+  topic_id   Int
+  course_id  Int
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  Course     Course   @relation(fields: [course_id], references: [id])
+  Topic      Topic    @relation(fields: [topic_id], references: [id])
+
+  @@id([topic_id, course_id])
+  @@index([course_id], map: "TopicCourse_course_id_fkey")
 }
