@@ -22,6 +22,9 @@ export class CoursesGetBySiteNameService {
               }
             ]
           }
+        },
+        include: {
+          Site: true,
         }
       });
   
@@ -38,6 +41,9 @@ export class CoursesGetBySiteNameService {
         Site: {
           site_name: siteName
         }
+      },
+      include: {
+        Site: true,
       }
     });
 
